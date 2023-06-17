@@ -7,5 +7,5 @@ output "aws_subnet" {
 }
 
 output "default_security_group_id" {
-  value = try(aws_vpc.this[0].default_security_group_id, null)
+  value = aws_vpc.main.default_security_group_id
 }

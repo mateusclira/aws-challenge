@@ -1,5 +1,5 @@
 output "lb_dns_name" {
-  value = alb.lb_dns_name
+  value = aws_lb.main.lb_dns_name
 }
 
 

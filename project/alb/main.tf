@@ -1,40 +1,9 @@
-module "alb" {
-  source  = "terraform-aws-modules/alb/aws"
-  version = "~> 8.0"
-    
+resource "aws_lb" "main" {
+
   name               = "wiley-alb"
   load_balancer_type = "application"
 
-  listener {
-    instance_port = 22
-    instance_protocol = "HTTP"
-    lb_port = 80
-    lb_protocol = "HTTP"
-  }
-
-  target_group {
-    name             = "wiley-tg"
-    backend_protocol = "HTTP"
-    backend_port     = 80
-    vpc_id           = var.vpc_id
-
-    targets = {
-        my_ec2_instance1 = {
-            target_id = aws_instance.my_ec2_instance1.id
-            port = 80
-        },
-        my_ec2_instance2 = {
-            target_id = aws_instance.my_ec2_instance2.id
-            port = 80
-        },
-        tags = {
-            sysId = "6f1bb632-da38-4e1f-86c3-6065f8662f88"
-        }
-    }
-  }
-
   subnets = [var.aws_subnet[0], var.aws_subnet[1]]
-
   security_groups = [var.default_security_group_id]
 
   security_group_rules = {
@@ -62,4 +31,24 @@ module "alb" {
       cidr_blocks = ["0.0.0.0/0"]
     }
   }
+}
+
+resource "aws_lb_listener" "front_end" {
+  load_balancer_arn = aws_lb.front_end.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.front_end.arn
+  }
+}
+
+resource "aws_lb_target_group" "test" {
+  name     = "tf-example-lb-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.main.id
 }
