@@ -6,7 +6,7 @@ resource "aws_instance" "instance1" {
   ami                         = "ami-022c9f1a24f813bf9"
   instance_type               = "t3.micro" # used to set core count below
   availability_zone           = "us-west-2a"
-  subnet_id                   = element(module.vpc.private_subnets, 0)
+  subnet_id                   = var.aws_subnet[0]
   vpc_security_group_ids      = var.default_security_group_id
   placement_group             = aws_placement_group.web.id
   associate_public_ip_address = true
@@ -27,7 +27,7 @@ resource "aws_instance" "instance2" {
   ami                         = "ami-022c9f1a24f813bf9"
   instance_type               = "t3.micro" # used to set core count below
   availability_zone           = "us-west-2a"
-  subnet_id                   = element(module.vpc.private_subnets, 0)
+  subnet_id                   = var.aws_subnet[1]
   vpc_security_group_ids      = var.default_security_group_id
   placement_group             = aws_placement_group.web.id
   associate_public_ip_address = true
