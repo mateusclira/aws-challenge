@@ -1,13 +1,12 @@
 locals {
-    region = var.aws_region
-    aws_region = locals.region
+    aws_region = var.aws_region
 }
 
 terraform {
     backend "s3" {
         bucket = "wy-a4f84a230c77"
         key    = "terraform.tfstate"
-        region = local.aws_region
+        region = "us-west-2"
     }
     required_providers {
         aws = {

@@ -1,4 +1,7 @@
-resource "alb" "main" {    
+module "alb" {
+  source  = "terraform-aws-modules/alb/aws"
+  version = "~> 8.0"
+    
   name               = "wiley-alb"
   load_balancer_type = "application"
 

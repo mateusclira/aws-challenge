@@ -1,6 +1,6 @@
 data "aws_availability_zones" "available" {}
 
-resource "ec2_instance" "ec1" {
+resource "aws_instance" "instance1" {
   name = var.ec1
 
   ami                         = "ami-022c9f1a24f813bf9"
@@ -21,7 +21,7 @@ resource "ec2_instance" "ec1" {
   }
 }
 
-resource "ec2_instance" "ec2" {
+resource "aws_instance" "instance2" {
   name = var.ec2
 
   ami                         = "ami-022c9f1a24f813bf9"
