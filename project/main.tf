@@ -23,6 +23,8 @@ provider "aws" {
 
 module "vpc" {
     source = "./vpc"
+
+    alb_sg_id = module.alb.alb_sg_id
 }
 
 module "alb" {
