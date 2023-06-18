@@ -4,9 +4,6 @@
 #   default     = false
 # }
 
-variable "public_ip" {
-  description = "The public IP address of the NAT Gateway"
-  default     = "187.21.2.183"
-}
 
-variable "alb_sg_id" {}
+
+# variable "alb_sg_id" {}
