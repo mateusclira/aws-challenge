@@ -16,6 +16,10 @@ terraform {
     }
 }
 
+# I needed to add this shared config files and credential to get the aws provider to work
+# because the path was not being recognized. This ~/.aws/config and ~/.aws/credentials are the path of the
+# files on my local machine (WSL on Windows 11)
+
 provider "aws" {
     region = local.aws_region
     shared_config_files      = ["~/.aws/config"]

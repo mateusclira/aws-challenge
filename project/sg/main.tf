@@ -40,6 +40,16 @@ resource "aws_security_group" "ec2" {
   }
 }
 
+#I Created this bastion so I could connect first on the bastion using SSH with my Public IP and then on the ec2
+#I also needed to create RSA keys to connect on the bastion and EC2
+
+#I Had to pass my rsa key to the bastion, I did it just using vi id_rsa and copied the key into it.
+#I needed to give CHMOD 400 on the key to be able to connect
+
+# to create the key: ssh-keygen -t rsa -b 4096 -C my-email@mail.com
+# ssh -i id_rsa ubuntu@(private_ip)
+
+
 resource "aws_security_group" "bastion" {
   name        = "bastion"
   description = "Allow TLS inbound traffic"

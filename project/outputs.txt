@@ -1,0 +1,12 @@
+aws_subnet_private = [
+  "subnet-0292b8a1081660a9f",
+  "subnet-0f745e14988f7e4b4",
+]
+aws_subnet_public = [
+  "subnet-0aa18f25b938d5511",
+  "subnet-06243177ae36282e7",
+]
+ec2_1_id = "i-03b642d6278511e07"
+ec2_2_id = "i-04f3cd3061911c782"
+lb_dns_name = "wiley-alb-623422469.us-west-2.elb.amazonaws.com"
+vpc_id = "vpc-0cb9f591421c492f8"

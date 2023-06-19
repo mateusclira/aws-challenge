@@ -9,6 +9,12 @@ resource "aws_instance" "instance1" {
   key_name                    = aws_key_pair.key.key_name
 
   user_data = data.template_file.userdata.rendered
+
+  tags = {
+    wy-a4f84a230c77 = "instance-1"
+    sysId: "6f1bb632-da38-4e1f-86c3-6065f8662f88"
+  }
+  
 }
 
 resource "aws_instance" "instance2" {
@@ -21,7 +27,8 @@ resource "aws_instance" "instance2" {
 
   user_data = data.template_file.userdata.rendered
   tags = {
-    Name = "instance2"
+    wy-a4f84a230c77 = "instance-2"
+    sysId: "6f1bb632-da38-4e1f-86c3-6065f8662f88"
   }
 }
 
@@ -34,7 +41,7 @@ resource "aws_instance" "bastion" {
   associate_public_ip_address = true
   key_name                    = aws_key_pair.key.key_name
   tags = {
-    Name = "Bastion"
+    Name = "bastion"
    }
 }
 
@@ -42,6 +49,11 @@ resource "aws_key_pair" "key" {
   key_name   = "key"
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCdBw7Hjj66enkSa+aMBKRhDPVRBQ7GWgn6/OhUmHawJId0hapE1WimzeZ487EHooCAqPW6YnGRtAu8Yky3vwLsYczpDL1PqEOPn5WsCRPFWSf8e6Og8NdFdG7sCpGPF1svweHKoR8a7XQFqo3l8dyzJLAzemxrq92lFfUf2dyc8hfO1Y80ypoVwKWIcxq3+kayv/CGGIJ9llD7ZI5jhZZo6E2KLoP43q9ff9SAoV0MqK9wc3tvc7lyx6GiDacVv5HBYSBbdng7BAwkv3gea3B2cREteAzNrq9tGpKVHUtoRq2nv5Y6VTipXdxLu3iY6YhKWvQL3KK9khY0t+nNhP+5Kwaj70sc4IEdSnayp3xFBczFAe2T2KdSgBZgtxiefb6zs8e3Jr1aovuu7PlMwacQPTE2z5+u/EWGcjQNPDbrI0LaaXJlUC99udcsX1v9KUDObIbds1U4C6oQYwOqd/HJM3p0c4fO/vwxX/99631+MCxGW1XCRG/WijqYPHg3JXhUmAqKnKE10UQ08xYyDVKja2gL2cWyUtRdpGxplhLZAeWP01FIjJiuzM53x5TsryBxnT23Oj+WjNOBRwwR9nuL5Yd00ox2GaDjHilWU0JnKciwyVop9PP3gYvTilEQCFM5GLaf9m6kDn3swPU8FEL05QKe6s+CDlKDvqPjTNi5mw== mateusc.lira@gmail.com"
 }
+
+# This path.module is the path to the directory where the ec2 module is located
+# This path.root is the path to the root directory of the project
+# Using "../" to go up one directory didn't work here, so I had to use the full path with this variable
+# filebase64 is a function that converts a file to base64
 
 data "template_file" "userdata" {
   template = file("${path.module}/userdata.tpl")
