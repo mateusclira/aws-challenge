@@ -55,6 +55,9 @@ resource "aws_key_pair" "key" {
 # Using "../" to go up one directory didn't work here, so I had to use the full path with this variable
 # filebase64 is a function that converts a file to base64
 
+
+# sudo rm /var/lib/cloud/instance/sem/config_scripts_user 
+# This is a necessary command to remove "cache" from the instances to run the user_data again
 data "template_file" "userdata" {
   template = file("${path.module}/userdata.tpl")
   vars = {
